@@ -2,7 +2,7 @@ import streamlit as st
 from itertools import combinations
 import pandas as pd
 
-from core.cima_api import descargar_medicamentos
+from core.cima_api import cargar_o_descargar_medicamentos
 from core.fichas import extraer_seccion_ficha
 from core.comparador import obtener_nregistro, comparar_mencion
 from core.comparador import obtener_pactivos
@@ -10,6 +10,8 @@ from core.riesgos import evaluar_riesgos
 from core.historial import inicializar_historial, registrar, mostrar
 
 st.set_page_config(page_title="Incompatibilidades CIMA", layout="wide")
+
+df = cargar_o_descargar_medicamentos()
 
 # Estilo personalizado: verde, azul, blanco
 st.markdown("""
@@ -90,7 +92,7 @@ st.markdown("""
 
 
 # Carga de datos
-st.session_state["medicamentos_cima"] = descargar_medicamentos()
+st.session_state["medicamentos_cima"] = cargar_o_descargar_medicamentos()
 df = st.session_state["medicamentos_cima"]
 lista_nombres = sorted(df["nombre"].unique())
 
