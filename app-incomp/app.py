@@ -92,7 +92,7 @@ st.markdown("""
 
 
 # Carga de datos
-st.session_state["medicamentos_cima"] = cargar_o_descargar_medicamentos()
+st.session_state["medicamentos_cima"] = cargar_datos_seguro()
 df = st.session_state["medicamentos_cima"]
 lista_nombres = sorted(df["nombre"].unique())
 
