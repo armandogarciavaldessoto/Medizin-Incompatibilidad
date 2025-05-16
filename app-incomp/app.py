@@ -40,9 +40,9 @@ st.markdown("""
         background-color: white !important;
     }
 
-    /* Botón */
+    /* Botones globales en azul institucional */
     .stButton>button {
-        background-color: #2ecc71;
+        background-color: #003366;
         color: white;
         font-weight: bold;
         border: none;
@@ -52,12 +52,12 @@ st.markdown("""
     }
 
     .stButton>button:disabled {
-        background-color: #a8d5b7;
+        background-color: #8095b3;
         color: white;
     }
 
     .stButton>button:hover {
-        background-color: #27ae60;
+        background-color: #001f4d;
         color: white;
     }
 
@@ -81,12 +81,43 @@ st.markdown("""
         background-color: #f1f8f6;
     }
 
-    /* Color negro para menú lateral radio */
+    /* Color negro para opciones del menú lateral */
     section[data-testid="stSidebar"] .stRadio label,
     section[data-testid="stSidebar"] .stRadio div {
         color: #000000 !important;
         font-weight: 600;
     }
+
+    /* Mensajes de éxito (verde) */
+    div[data-testid="stAlert-success"],
+    div[data-testid="stAlert-success"] * {
+    color: #003366 !important;
+    font-weight: 700 !important;
+    font-size: 0.95rem !important;
+    opacity: 1 !important;
+    text-shadow: none !important;
+    }
+
+    /* Mensajes de advertencia (amarillo) */
+    div[data-testid="stAlert-warning"],
+    div[data-testid="stAlert-warning"] * {
+    color: #003366 !important;
+    font-weight: 700 !important;
+    font-size: 0.95rem !important;
+    opacity: 1 !important;
+    text-shadow: none !important;
+    }
+
+    /* Mensajes de error (rojo) */
+    div[data-testid="stAlert-error"],
+    div[data-testid="stAlert-error"] * {
+    color: #003366 !important;
+    font-weight: 700 !important;
+    font-size: 0.95rem !important;
+    opacity: 1 !important;
+    text-shadow: none !important;
+    }
+
     </style>
 """, unsafe_allow_html=True)
 
