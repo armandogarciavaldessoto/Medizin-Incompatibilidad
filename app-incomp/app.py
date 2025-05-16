@@ -2,7 +2,7 @@ import streamlit as st
 from itertools import combinations
 import pandas as pd
 
-from core.cima_api import cargar_o_descargar_medicamentos
+from core.cima_api import cargar_datos_seguro
 from core.fichas import extraer_seccion_ficha
 from core.comparador import obtener_nregistro, comparar_mencion
 from core.comparador import obtener_pactivos
@@ -11,7 +11,7 @@ from core.historial import inicializar_historial, registrar, mostrar
 
 st.set_page_config(page_title="Incompatibilidades CIMA", layout="wide")
 
-df = cargar_o_descargar_medicamentos()
+df = cargar_datos_seguro()
 
 # Estilo personalizado: verde, azul, blanco
 st.markdown("""

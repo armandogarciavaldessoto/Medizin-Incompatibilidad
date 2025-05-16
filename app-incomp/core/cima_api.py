@@ -1,7 +1,6 @@
-import pandas as pd
 import os
 import time
-from datetime import datetime
+import pandas as pd
 import requests
 import streamlit as st
 
@@ -23,14 +22,20 @@ def descargar_medicamentos():
     return pd.DataFrame(todos)
 
 @st.cache_data
-def cargar_o_descargar_medicamentos():
+def cargar_datos_seguro():
     csv_path = "medicamentos_cima.csv"
 
-    # Si no existe o tiene más de 1 día (86400 segundos), descargar
-    if not os.path.exists(csv_path) or (time.time() - os.path.getmtime(csv_path)) > 86400:
-        df = descargar_medicamentos()
-        df.to_csv(csv_path, index=False)
-    else:
-        df = pd.read_csv(csv_path)
+    # Detectar si estamos en Streamlit Cloud (headless server)
+    en_cloud = "STREAMLIT_SERVER_HEADLESS" in os.environ
 
-    return df
+    if en_cloud:
+        # Solo cargar el CSV ya incluido en el repositorio
+        return pd.read_csv(csv_path)
+    else:
+        # Local: usar CSV si existe y es reciente, si no, descargar
+        if not os.path.exists(csv_path) or (time.time() - os.path.getmtime(csv_path)) > 86400:
+            df = descargar_medicamentos()
+            df.to_csv(csv_path, index=False)
+        else:
+            df = pd.read_csv(csv_path)
+        return df
