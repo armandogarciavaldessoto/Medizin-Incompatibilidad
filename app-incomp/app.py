@@ -8,6 +8,9 @@ from core.comparador import obtener_nregistro, comparar_mencion
 from core.comparador import obtener_pactivos
 from core.riesgos import evaluar_riesgos
 from core.historial import inicializar_historial, registrar, mostrar
+from core.fichas import extraer_seccion_ficha, limpiar_texto_ficha
+from core.comparador import obtener_nregistro
+
 
 st.set_page_config(page_title="Incompatibilidades CIMA", layout="wide")
 
@@ -77,13 +80,18 @@ if opcion == "📄 Ver sección 4.5 (interacciones)":
     seleccion = st.selectbox("Selecciona un medicamento:", meds_45)
 
     if st.button("Ver sección 4.5"):
-        nreg, _ = obtener_nregistro(seleccion, df_45)
+        nreg, nombre_medicamento = obtener_nregistro(seleccion, df_45)
         if not nreg:
             st.error("No se encontró el medicamento.")
         else:
             texto, enlace = extraer_seccion_ficha(nreg, "4.5")
             if texto:
-                st.text_area("Contenido de la sección 4.5", texto, height=400)
+                texto_limpio = limpiar_texto_ficha(nombre_medicamento, texto)
+                st.markdown(f"""
+                    <div style="max-height: 300px; overflow-y: auto; padding: 10px; background-color: #f9f9f9; color: #003366; font-size: 0.95rem;">
+                    {texto_limpio.replace(chr(10), "<br>")}
+                    </div>
+                """, unsafe_allow_html=True)
             else:
                 st.warning("⚠️ La sección 4.5 no está disponible en formato segmentado para este medicamento.")
                 st.markdown(f"[📄 Ver ficha técnica completa en CIMA]({enlace})")
@@ -102,13 +110,18 @@ elif opcion == "🚫 Ver sección 4.3 (contraindicaciones)":
     seleccion = st.selectbox("Selecciona un medicamento:", meds_43, key="contraindicaciones")
 
     if st.button("Ver sección 4.3"):
-        nreg, _ = obtener_nregistro(seleccion, df_43)
+        nreg, nombre_medicamento = obtener_nregistro(seleccion, df_43)
         if not nreg:
             st.error("❌ No se encontró el medicamento.")
         else:
             texto, enlace = extraer_seccion_ficha(nreg, "4.3")
             if texto:
-                st.text_area("Contenido de la sección 4.3", texto, height=400)
+                texto_limpio = limpiar_texto_ficha(nombre_medicamento, texto)
+                st.markdown(f"""
+                    <div style="max-height: 300px; overflow-y: auto; padding: 10px; background-color: #f9f9f9; color: #003366; font-size: 0.95rem;">
+                    {texto_limpio.replace(chr(10), "<br>")}
+                    </div>
+                """, unsafe_allow_html=True)
             else:
                 st.warning("⚠️ La sección 4.3 no está disponible en formato segmentado para este medicamento.")
                 st.markdown(f"[📄 Ver ficha técnica completa en CIMA]({enlace})")
