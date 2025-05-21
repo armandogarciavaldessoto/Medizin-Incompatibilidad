@@ -13,111 +13,31 @@ st.set_page_config(page_title="Incompatibilidades CIMA", layout="wide")
 
 df = cargar_datos_seguro()
 
-# Estilo personalizado: verde, azul, blanco
+# Estilo personalizado para Streamlit
+# Estilo visual personalizado para Streamlit
 st.markdown("""
     <style>
-    /* Fondo y texto base */
-    body, .stApp {
-        background-color: #ffffff;
-        color: #003366;
-    }
-
-    /* Títulos y etiquetas */
-    h1, h2, h3, .stMarkdown, .stText, .stSelectbox label {
-        color: #003366 !important;
-        font-weight: 700;
-    }
-
-    /* Selector de medicamentos */
-    .stSelectbox > div {
-        border-top: 2px solid white !important;
-    }
-
-    .stSelectbox div[data-baseweb="select"],
-    .stSelectbox div[role="button"],
-    .stSelectbox div[role="listbox"] {
-        color: #003366 !important;
+    /* Mensajes (todos los tipos) en fondo blanco y texto azul marino */
+    div[data-testid^="stAlert-"] {
         background-color: white !important;
+        border: 1px solid #ccd8e3 !important;
+        border-radius: 8px !important;
+        padding: 0.8em 1em !important;
+        box-shadow: none !important;
     }
 
-    /* Botones globales en azul institucional */
-    .stButton>button {
-        background-color: #003366;
-        color: white;
-        font-weight: bold;
-        border: none;
-        border-radius: 8px;
-        padding: 0.5em 1.2em;
-        font-size: 1rem;
+    div[data-testid^="stAlert-"] * {
+        color: #003366 !important;  /* Azul marino */
+        font-weight: 600 !important;
+        font-size: 1rem !important;
+        text-shadow: none !important;
+        opacity: 1 !important;
     }
 
-    .stButton>button:disabled {
-        background-color: #8095b3;
-        color: white;
+    /* Opcional: elimina iconos de alerta si quieres aún más neutralidad visual */
+    div[data-testid^="stAlert-"] svg {
+        display: none !important;
     }
-
-    .stButton>button:hover {
-        background-color: #001f4d;
-        color: white;
-    }
-
-    /* Área de texto (fichas técnicas) */
-    .stTextArea textarea {
-        background-color: #f9f9f9;
-        color: #003366;
-        font-family: 'Courier New', monospace;
-        font-size: 0.95rem;
-    }
-
-    /* Enlaces */
-    .stMarkdown a {
-        color: #003366;
-        font-weight: bold;
-        text-decoration: underline;
-    }
-
-    /* Sidebar */
-    section[data-testid="stSidebar"] {
-        background-color: #f1f8f6;
-    }
-
-    /* Color negro para opciones del menú lateral */
-    section[data-testid="stSidebar"] .stRadio label,
-    section[data-testid="stSidebar"] .stRadio div {
-        color: #000000 !important;
-        font-weight: 600;
-    }
-
-    /* Mensajes de éxito (verde) */
-    div[data-testid="stAlert-success"],
-    div[data-testid="stAlert-success"] * {
-    color: #003366 !important;
-    font-weight: 700 !important;
-    font-size: 0.95rem !important;
-    opacity: 1 !important;
-    text-shadow: none !important;
-    }
-
-    /* Mensajes de advertencia (amarillo) */
-    div[data-testid="stAlert-warning"],
-    div[data-testid="stAlert-warning"] * {
-    color: #003366 !important;
-    font-weight: 700 !important;
-    font-size: 0.95rem !important;
-    opacity: 1 !important;
-    text-shadow: none !important;
-    }
-
-    /* Mensajes de error (rojo) */
-    div[data-testid="stAlert-error"],
-    div[data-testid="stAlert-error"] * {
-    color: #003366 !important;
-    font-weight: 700 !important;
-    font-size: 0.95rem !important;
-    opacity: 1 !important;
-    text-shadow: none !important;
-    }
-
     </style>
 """, unsafe_allow_html=True)
 

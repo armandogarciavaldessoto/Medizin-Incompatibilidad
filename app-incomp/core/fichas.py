@@ -19,3 +19,22 @@ def extraer_seccion_ficha(nregistro, seccion):
 
     return texto, None
 
+def limpiar_texto_ficha(nombre_medicamento: str, texto: str) -> str:
+    """
+    Limpia encabezados molestos, espacios excesivos y añade el nombre del medicamento al inicio.
+    """
+    import re
+
+    # Eliminar encabezados tipo ':: CIMA ::. FICHA TECNICA'
+    texto = re.sub(r"(?i)\s*\.*::\s*CIMA\s*::.*FICHA TECNICA.*", "", texto)
+
+    # Eliminar líneas vacías excesivas
+    texto = re.sub(r"\n{2,}", "\n\n", texto.strip())
+
+    # Reemplazar saltos invisibles si existen
+    texto = texto.replace("\u200b", "")
+
+    # Añadir título con el nombre del medicamento
+    resultado = f"### {nombre_medicamento.upper()}\n\n{texto}"
+
+    return resultado
